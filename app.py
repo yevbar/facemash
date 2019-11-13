@@ -67,7 +67,7 @@ def score(greater, lesser):
 @app.route("/scoreboard")
 def scoreboard():
     entities = list(mongo.db.entities.find())
-    entities = sorted(entities, key=lambda x: x["elo"])
+    entities = sorted(entities, key=lambda x: x["elo"])[::-1]
     return render_template("scoreboard.html", entities=entities)
 
 if __name__ == "__main__":
