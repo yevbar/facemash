@@ -6,7 +6,7 @@ with open("result.txt", 'r') as f:
     content = f.read()
     obj = json.loads(content)
 
-bad_names = ['hunterwoodhall', 'MMeekerW', 'mcard1204', 'parkertracing', 'GreenKirken', 'PANYNJ', 'JeffMarkowitz1', 'AndrewParkerII', 'MatthewamHoward', 'Coach_Lim', 'swsandell', 'rambo_jordan', 'MrSteveAnderson', 'abigailxlovex', 'SteveRo67352623', 'TorresAdrianaTV', 'ProfGraceGu', 'KevinCarter_93']
+bad_names = ['followjyp', 'D_Lee_Dreams', 'hunterwoodhall', 'MMeekerW', 'mcard1204', 'parkertracing', 'GreenKirken', 'PANYNJ', 'JeffMarkowitz1', 'AndrewParkerII', 'MatthewamHoward', 'Coach_Lim', 'swsandell', 'rambo_jordan', 'MrSteveAnderson', 'abigailxlovex', 'SteveRo67352623', 'TorresAdrianaTV', 'ProfGraceGu', 'KevinCarter_93']
 
 for person in list(obj):
     print(obj[person])
