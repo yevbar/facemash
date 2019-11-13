@@ -10,7 +10,8 @@ mongo = PyMongo(app)
 
 @app.before_first_request
 def setup():
-    mongo.db.entities.drop()
+    # Only for debugging purposes
+    # mongo.db.entities.drop()
 
     my_obj = {}
     with open("result.txt") as f:
