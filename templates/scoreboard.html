@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Who's the hottest VC in the game?</title>
+    <style>
+      @-webkit-keyframes groovy {
+          0%{background-position:0% 50%}
+          50%{background-position:100% 50%}
+          100%{background-position:0% 50%}
+      }
+      @-moz-keyframes groovy {
+          0%{background-position:0% 50%}
+          50%{background-position:100% 50%}
+          100%{background-position:0% 50%}
+      }
+      @keyframes groovy {
+          0%{background-position:0% 50%}
+          50%{background-position:100% 50%}
+          100%{background-position:0% 50%}
+      }
+
+      @keyframes gorgeous {
+        0% {transform: scale(1);}
+        50% {transform: scale(1.1);}
+        100% {transform: scale(1);}
+      }
+
+      .gorgeous {
+        animation: gorgeous 1s linear infinite;
+      }
+
+      body {
+        font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+      }
+
+      h1 {
+        margin: 60px;
+        color: white;
+      }
+
+      #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(270deg, #f81894, #ff5f00);
+        background-size: 400% 400%;
+        overflow-y: scroll;
+
+        -webkit-animation: groovy 3s ease infinite;
+        -moz-animation: groovy 3s ease infinite;
+        animation: groovy 3s ease infinite;
+      }
+
+      ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 15px;
+      }
+
+      li img {
+        width: 25vw;
+        height: 25vw;
+        object-fit: cover;
+      }
+
+      li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <ul>
+      {% for entity in entities %}
+        <li class="{{ 'gorgeous' if entity == entities[0] else '' }}">
+          <img src="{{ entity['profile_image_url_https'] }}">
+          <span><a href="https://twitter.com/{{ entity['screen_name'] }}">@{{ entity['screen_name'] }}</a></span>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>

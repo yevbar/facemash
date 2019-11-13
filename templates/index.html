@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Who's the hottest VC in the game?</title>
+    <style>
+      @-webkit-keyframes groovy {
+          0%{background-position:0% 50%}
+          50%{background-position:100% 50%}
+          100%{background-position:0% 50%}
+      }
+      @-moz-keyframes groovy {
+          0%{background-position:0% 50%}
+          50%{background-position:100% 50%}
+          100%{background-position:0% 50%}
+      }
+      @keyframes groovy {
+          0%{background-position:0% 50%}
+          50%{background-position:100% 50%}
+          100%{background-position:0% 50%}
+      }
+
+      body {
+        font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+      }
+
+      h1 {
+        margin: 60px;
+        color: white;
+      }
+
+      #container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(270deg, #f81894, #ff5f00);
+        background-size: 400% 400%;
+
+        -webkit-animation: groovy 3s ease infinite;
+        -moz-animation: groovy 3s ease infinite;
+        animation: groovy 3s ease infinite;
+      }
+
+      #options {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+      }
+
+      .entity {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .entity:hover {
+        transform: scale(1.1);
+      }
+
+      .entity img {
+        width: 33vw;
+        height: 33vw;
+        object-fit: cover;
+      }
+
+      .entity a {
+        color: white;
+        text-decoration: none;
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Help us figure out who the hottest VC in the game is!</h1>
+      <div id="options">
+        <div id="left-side" class="entity">
+          <img id="left-image" src="">
+          <span id="left-entity"></span>
+        </div>
+        <div id="right-side" class="entity">
+          <img id="right-image" src="">
+          <span id="right-entity"></span>
+        </div>
+      </div>
+    </div>
+    <script>
+      let leftEntity;
+      let rightEntity;
+
+      async function getEntities() {
+        return fetch("/entities")
+          .then(response => response.json());
+      }
+
+      function setEntities() {
+        getEntities()
+          .then(data => {
+            leftEntity = data[0];
+            rightEntity = data[1];
+
+            document.getElementById("left-image").setAttribute("src", leftEntity["profile_image_url_https"]);
+            document.getElementById("left-entity").innerHTML = `<a href="https://twitter.com/${leftEntity["screen_name"]}">@${leftEntity["screen_name"]}</a>`;
+
+            document.getElementById("right-image").setAttribute("src", rightEntity["profile_image_url_https"]);
+            document.getElementById("right-entity").innerHTML = `<a href="https://twitter.com/${rightEntity["screen_name"]}">@${rightEntity["screen_name"]}</a>`;
+          });
+      }
+
+      function leftGreater() {
+        fetch(`/score/${leftEntity["screen_name"]}/${rightEntity["screen_name"]}`)
+          .then(setEntities())
+      }
+
+      function rightGreater() {
+        fetch(`/score/${rightEntity["screen_name"]}/${leftEntity["screen_name"]}`)
+          .then(setEntities())
+      }
+
+      setEntities();
+      document.getElementById("left-image").addEventListener("click", leftGreater);
+      document.getElementById("right-image").addEventListener("click", rightGreater);
+
+      window.setTimeout(() => alert("Help us figure out who's the hottest VC in the game! We're not talking about ROI but looks of course\n\n(yes this is a facemash clone lol)"), 500);
+    </script>
+  </body>
+</html>
