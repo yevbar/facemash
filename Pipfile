@@ -11,6 +11,7 @@ lxml = "*"
 requests = "*"
 python-twitter = "*"
 gunicorn = "*"
+flask-pymongo = "*"
 
 [requires]
 python_version = "3.6"
